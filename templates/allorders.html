@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<div class="container mt-5">
+    {% if orders.count > 0 %}
+        <div class="row justify-content-center">
+            {% for order in orders %}
+            <div class="d-flex justify-content-center mb-4">
+                <div class="card" style="width: 800px;">
+                    <div class="row g-0"> 
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{% url 'detailorders' order.id %}">{{ order.user_id }}</a>
+                                </h5>
+                                <p class="card-text">{{ order.film }}</p>
+                                <p class="card-text"><small class="text-muted">{{ order.qvantity }}</small></p>
+                                <p class="card-text"><small class="text-muted">{{ order.type_pay }}</small></p>
+                                <a href="{% url 'detailorders' order.id %}" class="btn btn-primary">Show</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No films available at the moment.</p>
+    {% endif %}
+</div>
+{% endblock content %}

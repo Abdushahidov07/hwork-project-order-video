@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<div class="container mt-5">
+    {% if teatres.count > 0 %}
+        <div class="row justify-content-center">
+            {% for teatre in teatres %}
+            <div class="d-flex justify-content-center mb-4">
+                <div class="card" style="width: 800px;">
+                    <div class="row g-0"> 
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{% url 'detailteatre' teatre.id %}">{{ teatre.name_teatre }}</a>
+                                </h5>
+                                <p class="card-text">{{ teatre.film }}</p>
+                                <p class="card-text"><small class="text-muted">{{ teatre.city_id }}</small></p>
+                                <p class="card-text"><small class="text-muted">{{ teatre.region_id }}</small></p>
+                                <p class="card-text"><small class="text-muted">{{ teatre.street_id }}</small></p>
+                                <a href="{% url 'detailteatre' teatre.id %}" class="btn btn-primary">Show</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No films available at the moment.</p>
+    {% endif %}
+</div>
+{% endblock content %}

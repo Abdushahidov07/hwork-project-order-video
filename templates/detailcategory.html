@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="d-flex justify-content-center mb-4">
+                <div class="card" style="width: 800px;">
+                    <div class="row g-0"> 
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="">{{category.id}}: {{ category.category_name }}</a>
+                                </h5>
+                                {% if user.is_superuser %}
+                                    <a href="{% url 'updatecategory' category.id %}" class="btn btn-primary">Update</a>
+                                    <a href="{% url 'deletecategory' category.id %}" class="btn btn-primary">Delete</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+</div>
+<div class="container mt-5">
+    {% if films.count > 0 %}
+        <div class="row justify-content-center">
+            {% for film in films %}
+            <div class="d-flex justify-content-center mb-4">
+                <div class="card" style="width: 800px;">
+                    <div class="row g-0"> 
+                        <div class="col-md-4">
+                            <img src="{{ film.img.url|default:'path/to/default-image.jpg' }}" class="img-fluid rounded-start" alt="{{ film.title }}">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{% url 'detailfilm' film.id %}">{{ film.title }}</a>
+                                </h5>
+                                <p class="card-text">{{ film.descriptions }}</p>
+                                <p class="card-text"><small class="text-muted">{{ film.teatre }}</small></p>
+                                <a href="{% url 'detailfilm' film.id %}" class="btn btn-primary">Show</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No films available at the moment.</p>
+    {% endif %}
+</div>
+{% endblock content %}

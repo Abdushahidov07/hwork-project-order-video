@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Video Player</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <video controls class="w-100">
+                        <source src="{{film.video.url}}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{film.title}}</h5>
+                  <p class="card-text">{{film.descriptions}}</p>
+                  <p class="card-text">Teatre: {{film.teatre}}</p>
+                  <p class="card-text">Tikets: {{film.tikets}}</p>
+                  <p class="card-text">Price: {{film.price}}</p><a href="{% url 'createorder' film.id %}" class="btn btn-primary">Order</a>
+                  <p class="card-text"><small class="text-muted">Day out: {{film.date_view}}</small></p>
+                  {% if user.id == film.created_by.id %}
+                  <a href="{% url 'updatefilm' film.id %}" class="btn btn-primary">Update</a>
+                  <a href="{% url 'deletefilm' film.id %}" class="btn btn-primary">Delete</a>
+                  {% endif %}
+                </div>
+              </div>
+        </div>
+        </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock content %}
